@@ -126,22 +126,29 @@ class ViewController: UIViewController {
     
     
     
-    func createUser(email: String, username: String) {
+    func createUser(email: String!, username: String!) {
         let ref = Database.database().reference()
         let refString = "users/" + username.lowercased()
         var newEmail = email.replacingOccurrences(of: "@", with: "")
         newEmail = newEmail.replacingOccurrences(of: ".", with: "")
         let emailRefString = "emails/" + newEmail.lowercased()
         
+        let atSet = CharacterSet.init(charactersIn: "@")
+        let periodSet = CharacterSet.init(charactersIn: ".")
+        
+        if (email.rangeOfCharacter(from: atSet) != nil) {
+            print("contains @ or .")
+        }
+        
+        
         if email == nil || username == nil {
             errorString = "fields must not be empty"
 //            view.setNeedsDisplay()
         }
         
-        
-        
         ref.child(refString).getData { error, snapshot in
             if snapshot.exists() {
+                self.errorString = "username already exists"
                 print("username exists")
             } else {
                 ref.child(emailRefString).getData { error, snapshot2 in
