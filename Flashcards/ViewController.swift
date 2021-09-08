@@ -20,9 +20,13 @@ class ViewController: UIViewController {
     let createUserButton = UIButton()
     let useAsGuestButton = UIButton()
     
-    let errorLabel = UILabel()
+    var errorLabel = UILabel()
     
-    var errorString : String = ""
+    var errorString : String = "" {
+        didSet {
+            errorLabel.text = errorString
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -93,7 +97,6 @@ class ViewController: UIViewController {
             usernameTextfield.leadingAnchor.constraint(equalTo: usernameLabel.trailingAnchor, constant: 0).isActive = true
             usernameTextfield.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor).isActive = true
             usernameTextfield.borderStyle = UITextField.BorderStyle.roundedRect
-
         }
         
         func setupEmailConstraints() {
@@ -115,6 +118,8 @@ class ViewController: UIViewController {
             signinButton.backgroundColor = .yellow
             signinButton.setTitleColor(.systemTeal, for: .normal)
             signinButton.widthAnchor.constraint(equalToConstant: 120).isActive = true
+            
+            signinButton.addTarget(self, action: #selector(pressedLogin), for: .touchUpInside)
         }
         
         func setupCreateUserContraints() {
@@ -124,6 +129,8 @@ class ViewController: UIViewController {
             createUserButton.backgroundColor = .yellow
             createUserButton.setTitleColor(.systemTeal, for: .normal)
             createUserButton.widthAnchor.constraint(equalToConstant: 120).isActive = true
+            
+            createUserButton.addTarget(self, action: #selector(pressedCreateUser), for: .touchUpInside)
         }
         
         func setupUseAsGuestContraints() {
@@ -139,6 +146,7 @@ class ViewController: UIViewController {
             errorLabel.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -60).isActive = true
             errorLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0).isActive = true
             errorLabel.text = errorString
+            print("errorlabel: \(errorString)")
             errorLabel.textColor = .red
         }
         
@@ -150,46 +158,122 @@ class ViewController: UIViewController {
         setupErrorLabelConstrains()
     }
     
+    @objc func pressedCreateUser() {
+        let userUsername : String!  = usernameTextfield.text
+        let userEmail : String!  = emailTextfield.text
+        
+        createUser(email: userEmail, username: userUsername)
+    }
     
     
-    
-    
-    func createUser(email: String, username: String) {
+    func createUser(email: String!, username: String!) {
         let ref = Database.database().reference()
         let refString = "users/" + username.lowercased()
-        var newEmail = email.replacingOccurrences(of: "@", with: "")
-        newEmail = newEmail.replacingOccurrences(of: ".", with: "")
-        let emailRefString = "emails/" + newEmail.lowercased()
         
-        if email == nil || username == nil {
-            errorString = "fields must not be empty"
-//            view.setNeedsDisplay()
-        }
-        
-        
-        
-        ref.child(refString).getData { error, snapshot in
-            if snapshot.exists() {
-                print("username exists")
-            } else {
-                ref.child(emailRefString).getData { error, snapshot2 in
-                    if snapshot2.exists() {
-                        print("email exists")
+        let atSet = CharacterSet.init(charactersIn: "@")
+        let periodSet = CharacterSet.init(charactersIn: ".")
+
+        if email == nil || username == nil || email == "" || username == "" {
+            self.errorString = "fields must not be empty"
+//            print("nil")
+        } else {
+            var newEmail = email.replacingOccurrences(of: "@", with: "")
+            newEmail = newEmail.replacingOccurrences(of: ".", with: "")
+            let emailRefString = "emails/" + newEmail.lowercased()
+            if (email.rangeOfCharacter(from: atSet) != nil) && (email.rangeOfCharacter(from: periodSet) != nil) {
+//                print("contains both")
+                ref.child(refString).getData { error, snapshot in
+                    if snapshot.exists() {
+                        self.errorString = "username already exists"
+//                        let value = snapshot.value as? NSDictionary
+//                        let usernameData = value?["\(username.lowercased())"] ?? ""
+//                        let usernameDataStr = (usernameData as? String) ?? ""
+//                        let emailStr = email ?? ""
+//                        print(usernameDataStr)
+//                        print(emailStr)
+//                        if usernameDataStr == emailStr.lowercased() {
+//                            print(usernameDataStr)
+//                        }
                     } else {
-                        print("creating")
-                        ref.child(emailRefString).setValue([
-                            newEmail: username,
-                        ])
-                        ref.child(refString).setValue([
-                            username: email,
-                        ])
+                        ref.child(emailRefString).getData { error, snapshot2 in
+                            if snapshot2.exists() {
+//                                print("email exists")
+                                self.errorString = "email already exists"
+                            } else {
+//                                print("creating")
+                                ref.child(emailRefString).setValue([
+                                    newEmail: username,
+                                ])
+                                ref.child(refString).setValue([
+                                    username: email,
+                                ])
+                            }
+                        }
                     }
                 }
-                
+            } else {
+                print("invalid email")
+                self.errorString = "email is invalid"
             }
         }
     }
+    
+    @objc func pressedLogin() {
+        let userUsername : String!  = usernameTextfield.text
+        let userEmail : String!  = emailTextfield.text
+        
+        login(email: userEmail, username: userUsername)
+    }
+    
+    
+    func login(email: String!, username: String!) {
+        let ref = Database.database().reference()
+        let refString = "users/" + username.lowercased()
+        
+        let atSet = CharacterSet.init(charactersIn: "@")
+        let periodSet = CharacterSet.init(charactersIn: ".")
 
-
+        if email == nil || username == nil || email == "" || username == "" {
+            self.errorString = "fields must not be empty"
+            print("nil")
+        } else {
+            var newEmail = email.replacingOccurrences(of: "@", with: "")
+            newEmail = newEmail.replacingOccurrences(of: ".", with: "")
+            let emailRefString = "emails/" + newEmail.lowercased()
+            if (email.rangeOfCharacter(from: atSet) != nil) && (email.rangeOfCharacter(from: periodSet) != nil) {
+                print("contains both")
+                ref.child(refString).getData { error, snapshot in
+                    if snapshot.exists() {
+//                        self.errorString = "username already exists"
+                        print("username exists")
+                        let value = snapshot.value as? NSDictionary
+                        let usernameData = value?["\(username.lowercased())"] ?? ""
+                        let usernameDataStr = (usernameData as? String) ?? ""
+                        let emailStr = email ?? ""
+                        if usernameDataStr == emailStr.lowercased() {
+                            print(usernameDataStr)
+                            print("login success")
+                            
+                        }
+                    } else {
+//                        let value = snapshot.value as? NSDictionary
+//                        let usernameData = value?["\(username.lowercased())"] ?? ""
+//                        let usernameDataStr = (usernameData as? String) ?? ""
+//                        let emailStr = email ?? ""
+//                        if usernameDataStr == emailStr.lowercased() {
+//                            print(usernameDataStr)
+//                            print("login success")
+//                        }
+                        self.errorString = "user does not exist"
+                        print("user does not exist")
+                    }
+                }
+            } else {
+                print("invalid email")
+                self.errorString = "email is invalid"
+            }
+        }
+    }
+    
 }
 
