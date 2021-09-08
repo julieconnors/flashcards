@@ -32,6 +32,34 @@ class ViewController: UIViewController {
         addSubView()
         setupConstraints()
         createUser(email: "bryan@gmail.com", username: "bryan2")
+        useAsGuestButton.addTarget(self, action: #selector(guestMode), for: .touchUpInside)
+    }
+    
+    @objc func guestMode() {
+        let tabBarVC = UITabBarController()
+        
+        let cardSB = UIStoryboard(name: "Cards", bundle: nil)
+        let cardsController = cardSB.instantiateViewController(identifier: "CardsVC")
+
+        let vc1 = cardsController
+        vc1.title = "Cards"
+        
+        let vc2 = GuestAccountViewController()
+        vc2.title = "Account"
+        let vc3 = GuestCreateCardViewController()
+        vc3.title = "Create"
+        tabBarVC.setViewControllers([vc1, vc2, vc3], animated: true)
+        
+        guard let items = tabBarVC.tabBar.items else { return }
+        
+        let images = ["square.grid.2x2", "person", "pencil.circle"]
+        
+        for i in 0..<items.count {
+            items[i].image = UIImage(systemName: images[i])
+        }
+        
+        tabBarVC.modalPresentationStyle = .fullScreen
+        present(tabBarVC, animated: true)
     }
     
     func addSubView() {
