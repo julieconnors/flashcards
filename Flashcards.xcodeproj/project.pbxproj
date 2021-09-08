@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D1B063426E91F3A00C24C29 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1B063326E91F3A00C24C29 /* AccountViewController.swift */; };
+		8D1B063626E91F5D00C24C29 /* CreateCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1B063526E91F5C00C24C29 /* CreateCardViewController.swift */; };
+		8D1B063826E91F8D00C24C29 /* CardsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1B063726E91F8C00C24C29 /* CardsViewController.swift */; };
+		8D1B063A26E91F9E00C24C29 /* TabBarNav.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D1B063926E91F9E00C24C29 /* TabBarNav.storyboard */; };
+		8D1B063C26E91FAC00C24C29 /* CreateCard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D1B063B26E91FAC00C24C29 /* CreateCard.storyboard */; };
+		8D1B063F26E9246300C24C29 /* CardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1B063D26E9246300C24C29 /* CardCell.swift */; };
+		8D1B064026E9246300C24C29 /* CardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8D1B063E26E9246300C24C29 /* CardCell.xib */; };
+		8D1B064226E92E7700C24C29 /* GuestAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1B064126E92E7700C24C29 /* GuestAccountViewController.swift */; };
+		8D1B064426E92EFB00C24C29 /* GuestCreateCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1B064326E92EFB00C24C29 /* GuestCreateCardViewController.swift */; };
+		8D1B064726E9305000C24C29 /* Cards.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D1B064626E9305000C24C29 /* Cards.storyboard */; };
 		8D93D4E326E7E25F00D7C03E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D93D4E226E7E25F00D7C03E /* AppDelegate.swift */; };
 		8D93D4E526E7E25F00D7C03E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D93D4E426E7E25F00D7C03E /* SceneDelegate.swift */; };
 		8D93D4E726E7E25F00D7C03E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D93D4E626E7E25F00D7C03E /* ViewController.swift */; };
@@ -39,6 +49,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8D1B063326E91F3A00C24C29 /* AccountViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		8D1B063526E91F5C00C24C29 /* CreateCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateCardViewController.swift; sourceTree = "<group>"; };
+		8D1B063726E91F8C00C24C29 /* CardsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardsViewController.swift; sourceTree = "<group>"; };
+		8D1B063926E91F9E00C24C29 /* TabBarNav.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = TabBarNav.storyboard; sourceTree = "<group>"; };
+		8D1B063B26E91FAC00C24C29 /* CreateCard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CreateCard.storyboard; sourceTree = "<group>"; };
+		8D1B063D26E9246300C24C29 /* CardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardCell.swift; sourceTree = "<group>"; };
+		8D1B063E26E9246300C24C29 /* CardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CardCell.xib; sourceTree = "<group>"; };
+		8D1B064126E92E7700C24C29 /* GuestAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestAccountViewController.swift; sourceTree = "<group>"; };
+		8D1B064326E92EFB00C24C29 /* GuestCreateCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestCreateCardViewController.swift; sourceTree = "<group>"; };
+		8D1B064626E9305000C24C29 /* Cards.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Cards.storyboard; sourceTree = "<group>"; };
 		8D93D4DF26E7E25F00D7C03E /* Flashcards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flashcards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D93D4E226E7E25F00D7C03E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D93D4E426E7E25F00D7C03E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -84,6 +104,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8D1B064526E92FAB00C24C29 /* Guest */ = {
+			isa = PBXGroup;
+			children = (
+				8D1B064126E92E7700C24C29 /* GuestAccountViewController.swift */,
+				8D1B064326E92EFB00C24C29 /* GuestCreateCardViewController.swift */,
+			);
+			name = Guest;
+			sourceTree = "<group>";
+		};
+		8D1B064826E9311C00C24C29 /* CardCells */ = {
+			isa = PBXGroup;
+			children = (
+				8D1B063E26E9246300C24C29 /* CardCell.xib */,
+				8D1B063D26E9246300C24C29 /* CardCell.swift */,
+			);
+			name = CardCells;
+			sourceTree = "<group>";
+		};
 		8D93D4D626E7E25F00D7C03E = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +145,14 @@
 		8D93D4E126E7E25F00D7C03E /* Flashcards */ = {
 			isa = PBXGroup;
 			children = (
+				8D1B064826E9311C00C24C29 /* CardCells */,
+				8D1B064526E92FAB00C24C29 /* Guest */,
+				8D1B063326E91F3A00C24C29 /* AccountViewController.swift */,
+				8D1B063526E91F5C00C24C29 /* CreateCardViewController.swift */,
+				8D1B063726E91F8C00C24C29 /* CardsViewController.swift */,
+				8D1B064626E9305000C24C29 /* Cards.storyboard */,
+				8D1B063B26E91FAC00C24C29 /* CreateCard.storyboard */,
+				8D1B063926E91F9E00C24C29 /* TabBarNav.storyboard */,
 				8D93D51326E7E27F00D7C03E /* Supporting */,
 				8D93D4E626E7E25F00D7C03E /* ViewController.swift */,
 				8D93D4E826E7E25F00D7C03E /* Main.storyboard */,
@@ -256,7 +302,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D1B063A26E91F9E00C24C29 /* TabBarNav.storyboard in Resources */,
 				8D93D4EF26E7E26000D7C03E /* LaunchScreen.storyboard in Resources */,
+				8D1B063C26E91FAC00C24C29 /* CreateCard.storyboard in Resources */,
+				8D1B064026E9246300C24C29 /* CardCell.xib in Resources */,
+				8D1B064726E9305000C24C29 /* Cards.storyboard in Resources */,
 				8D93D4EC26E7E26000D7C03E /* Assets.xcassets in Resources */,
 				8D93D4EA26E7E25F00D7C03E /* Main.storyboard in Resources */,
 				A44B027226E7ED5D0000F41C /* GoogleService-Info.plist in Resources */,
@@ -284,8 +334,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D1B063F26E9246300C24C29 /* CardCell.swift in Sources */,
+				8D1B064426E92EFB00C24C29 /* GuestCreateCardViewController.swift in Sources */,
 				8D93D4E726E7E25F00D7C03E /* ViewController.swift in Sources */,
+				8D1B063626E91F5D00C24C29 /* CreateCardViewController.swift in Sources */,
+				8D1B063826E91F8D00C24C29 /* CardsViewController.swift in Sources */,
 				8D93D4E326E7E25F00D7C03E /* AppDelegate.swift in Sources */,
+				8D1B063426E91F3A00C24C29 /* AccountViewController.swift in Sources */,
+				8D1B064226E92E7700C24C29 /* GuestAccountViewController.swift in Sources */,
 				8D93D4E526E7E25F00D7C03E /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
