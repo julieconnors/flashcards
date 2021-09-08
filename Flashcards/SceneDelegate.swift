@@ -17,21 +17,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let tabStoryboard = UIStoryboard(name: "TabBarNav", bundle: nil)
-         
-         /// if user is logged in before
-         if let user = UserDefaults.standard.string(forKey: "username") {
-             /// instantiate the tab bar controller and set it as root view controller
-             let tabBarController = tabStoryboard.instantiateViewController(identifier: "TabBarNav")
-             window?.rootViewController = tabBarController
-         } else {
-             /// if user isn't logged in
-             /// instantiate the navigation controller and set it as root view controller
-             
-            let loginNavController = storyboard.instantiateViewController(identifier: "LoginViewController")
-             window?.rootViewController = loginNavController
-         }
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let tabStoryboard = UIStoryboard(name: "TabBarNav", bundle: nil)
+//
+//         /// if user is logged in before
+//         if let user = UserDefaults.standard.string(forKey: "username") {
+//             /// instantiate the tab bar controller and set it as root view controller
+//             let tabBarController = tabStoryboard.instantiateViewController(identifier: "TabBarNav")
+//             window?.rootViewController = tabBarController
+//         } else {
+//             /// if user isn't logged in
+//             /// instantiate the navigation controller and set it as root view controller
+//
+//            let loginNavController = storyboard.instantiateViewController(identifier: "LoginViewController")
+//             window?.rootViewController = loginNavController
+//         }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
