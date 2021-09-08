@@ -11,12 +11,27 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
-
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let tabStoryboard = UIStoryboard(name: "TabBarNav", bundle: nil)
+         
+         /// if user is logged in before
+         if let user = UserDefaults.standard.string(forKey: "username") {
+             /// instantiate the tab bar controller and set it as root view controller
+             let tabBarController = tabStoryboard.instantiateViewController(identifier: "TabBarNav")
+             window?.rootViewController = tabBarController
+         } else {
+             /// if user isn't logged in
+             /// instantiate the navigation controller and set it as root view controller
+             
+            let loginNavController = storyboard.instantiateViewController(identifier: "LoginViewController")
+             window?.rootViewController = loginNavController
+         }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -45,6 +60,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+    }
+    
+    func changeRootViewController(_ vc: UIViewController, animated: Bool = true) {
+        guard let window = self.window else {
+            return
+        }
+        
+        window.rootViewController = vc
     }
 
 
