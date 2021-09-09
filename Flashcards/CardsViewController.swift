@@ -10,12 +10,28 @@ import UIKit
 class CardsViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
-    
-    let cards = ["generics", "protocols", "structs"]
+        
+    var viewModel: CardCollectionViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpVM()
         configureCollection()
+    }
+    
+    func setUpVM() {
+        viewModel = CardCollectionViewModel()
+        
+        let setCompletion = { [weak self] in
+            guard let wself = self else { return }
+            wself.setCards()
+        }
+        
+        viewModel?.bind(completion: setCompletion)
+    }
+    
+    func setCards() {
+        collectionView.reloadData()
     }
     
     func configureCollection() {
@@ -27,18 +43,33 @@ class CardsViewController: UIViewController {
 
 extension CardsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //viewModel.numItems
-        6
+        viewModel?.number ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        ///create custom cell
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CardCell.identifier, for: indexPath) as? CardCell else {
             fatalError()
         }
+        
+        let card = viewModel?.setCard(at: indexPath.row)
+        
+        cell.headline.text = card?.headline
                 
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let card = viewModel?.setCard(at: indexPath.row)
+        print("selected")
+        
+        let cardSB = UIStoryboard(name: "Cards", bundle: nil)
+        let popupVC = cardSB.instantiateViewController(identifier: "CardBackVC")
+        popupVC.modalPresentationStyle = .popover
+
+        //pass card data to update vc
+        present(popupVC, animated: true, completion: nil)
     }
 }
 
