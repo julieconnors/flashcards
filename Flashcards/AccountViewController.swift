@@ -10,13 +10,13 @@ import UIKit
 class AccountViewController: UIViewController {
     
     var usernameLabel: UILabel = {
-        var label = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        var label = UILabel(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
         label.text = "Username"
         return label
     }()
     
     var emailLabel: UILabel = {
-        var label = UILabel(frame: CGRect(x: 0, y: 0, width: 100, height: 100))
+        var label = UILabel(frame: CGRect(x: 100, y: 150, width: 100, height: 100))
         label.text = "Email"
         return label
     }()
