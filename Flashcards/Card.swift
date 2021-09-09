@@ -6,3 +6,8 @@
 //
 
 import Foundation
+
+struct Card {
+    let headline: String
+    let description: String
+}
