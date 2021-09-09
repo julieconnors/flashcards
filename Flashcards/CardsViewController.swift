@@ -61,14 +61,14 @@ extension CardsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
-        let card = viewModel?.setCard(at: indexPath.row)
+        guard let card = viewModel?.setCard(at: indexPath.row) else { return }
         print("selected")
         
         let cardSB = UIStoryboard(name: "Cards", bundle: nil)
-        let popupVC = cardSB.instantiateViewController(identifier: "CardBackVC")
+        guard let popupVC = cardSB.instantiateViewController(identifier: "CardBackVC") as? CardBackViewController else { return }
+        popupVC.labelDescription = card.description
         popupVC.modalPresentationStyle = .popover
 
-        //pass card data to update vc
         present(popupVC, animated: true, completion: nil)
     }
 }
