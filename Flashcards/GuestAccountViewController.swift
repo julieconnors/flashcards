@@ -19,7 +19,7 @@ class GuestAccountViewController: UIViewController {
     }
     
     var label: UILabel = {
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
+        let label = UILabel(frame: CGRect(x: 100, y: 100, width: 200, height: 100))
 
         label.text = "Please sign in"
         label.font = .systemFont(ofSize: 18, weight: .medium)
@@ -27,9 +27,9 @@ class GuestAccountViewController: UIViewController {
     }()
     
     var button: UIButton = {
-        let button = UIButton()
-        //set text
-        //add constraints
+        let button = UIButton(frame: CGRect(x: 80, y: 100, width: 150, height: 200))
+        button.setTitle("Go back to login", for: .normal)
+
         return button
     }()
 }

@@ -16,8 +16,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="189" height="150"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hjk-Ij-OG5">
-                        <rect key="frame" x="73.5" y="64.5" width="42" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xhx-Zz-3vX">
+                        <rect key="frame" x="73" y="64" width="42" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -26,13 +27,9 @@
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <color key="backgroundColor" red="0.98816444390000002" green="0.81717163569999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-            <constraints>
-                <constraint firstItem="hjk-Ij-OG5" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="cDo-GA-GpT"/>
-                <constraint firstItem="hjk-Ij-OG5" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="sOd-XX-gbm"/>
-            </constraints>
             <size key="customSize" width="189" height="150"/>
             <connections>
-                <outlet property="headline" destination="hjk-Ij-OG5" id="a0m-cX-lOK"/>
+                <outlet property="headline" destination="xhx-Zz-3vX" id="TXU-T7-ZcX"/>
             </connections>
             <point key="canvasLocation" x="74.637681159420296" y="77.008928571428569"/>
         </collectionViewCell>

@@ -26,5 +26,8 @@ class AccountViewController: UIViewController {
         view.backgroundColor = .systemBlue
         view.addSubview(usernameLabel)
         view.addSubview(emailLabel)
+        
+        usernameLabel.translatesAutoresizingMaskIntoConstraints = false
+        emailLabel.translatesAutoresizingMaskIntoConstraints = false
     }
 }
