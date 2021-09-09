@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 
 class CardCollectionViewModel {
     
@@ -37,12 +38,48 @@ class CardCollectionViewModel {
     
     func getCards() {
         //get from db, save to cards vm
+        let ref = Database.database().reference()
+        let refString = "flashcards/"
+        
+        ref.child(refString).getData(completion: { error, snapshot in
+            print(snapshot.value)
+            guard let data = snapshot.value else {fatalError()}
+            
+            let dataDict = data as? NSDictionary
+            
+            guard let dict = dataDict else {fatalError()}
+            
+            print(dict)
+            
+            for (key, value) in dict {
+                print("key:", key)
+                print("value:", value)
+                print(type(of: value))
+                
+                guard let dict2 = value as? Dictionary<String,Any> else {fatalError()}
+                for (key, value) in dict2 {
+                    print(key)
+                    print(value)
+                    print(type(of: value))
+                }
+                
+            }
+            
+            
+            
+            
+            
+            
+        })
+        
         
         cardVM = cards
     }
     
     func addCard() {
         //add to cards vm and persist to db
+        
+        
     }
     
     func bind(completion: @escaping () -> Void) {
