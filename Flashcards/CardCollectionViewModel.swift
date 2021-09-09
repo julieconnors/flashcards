@@ -10,7 +10,7 @@ import Firebase
 
 class CardCollectionViewModel {
     
-    var cardVM: [Card]? {
+    var cardVM: [Card]? = [] {
         didSet {
             DispatchQueue.main.async {
                 self.updateUI?()
@@ -60,20 +60,15 @@ class CardCollectionViewModel {
                 for (key, value) in dict2 {
                     print(key)
                     print(value)
-                    print(type(of: value))
-                }
+                    let newKey = (key as? String) ?? ""
+                    let newValue = (value as? String) ?? ""
                 
+                    let newCard = Card(headline: newKey, description: newValue)
+                    self.cardVM?.append(newCard)
+
+                }
             }
-            
-            
-            
-            
-            
-            
         })
-        
-        
-        cardVM = cards
     }
     
     func addCard() {

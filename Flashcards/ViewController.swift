@@ -79,6 +79,9 @@ class ViewController: UIViewController {
         
         let vc2 = AccountViewController()
         vc2.title = "Account"
+        vc2.username = usernameTextfield.text ?? ""
+        vc2.email = emailTextfield.text ?? ""
+        
         let vc3 = createCardController
         vc3.title = "Create"
         tabBarVC.setViewControllers([vc1, vc2, vc3], animated: true)

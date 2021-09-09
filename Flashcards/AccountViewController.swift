@@ -9,6 +9,18 @@ import UIKit
 
 class AccountViewController: UIViewController {
     
+    var username : String = "" {
+        didSet {
+            usernameLabel.text = username
+        }
+    }
+    var email : String = "" {
+        didSet {
+            emailLabel.text = email
+        }
+    }
+    
+    
     var usernameLabel: UILabel = {
         var label = UILabel(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
         label.text = "Username"
@@ -16,7 +28,7 @@ class AccountViewController: UIViewController {
     }()
     
     var emailLabel: UILabel = {
-        var label = UILabel(frame: CGRect(x: 100, y: 150, width: 100, height: 100))
+        var label = UILabel(frame: CGRect(x: 100, y: 150, width: 200, height: 100))
         label.text = "Email"
         return label
     }()

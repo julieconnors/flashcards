@@ -33,7 +33,12 @@ class GuestCreateCardViewController: UIViewController {
     var button: UIButton = {
         let button = UIButton(frame: CGRect(x: 80, y: 100, width: 150, height: 200))
         button.setTitle("Go back to login", for: .normal)
+        button.addTarget(self, action: #selector(goToLogin), for: .touchUpInside)
         
         return button
     }()
+    
+    @objc func goToLogin() {
+        self.dismiss(animated: true, completion: nil)
+    }
 }
