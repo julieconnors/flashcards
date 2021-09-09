@@ -35,7 +35,6 @@ class ViewController: UIViewController {
         view.backgroundColor = .white
         addSubView()
         setupConstraints()
-        createUser(email: "bryan@gmail.com", username: "bryan2")
         useAsGuestButton.addTarget(self, action: #selector(guestMode), for: .touchUpInside)
     }
     
@@ -232,10 +231,10 @@ class ViewController: UIViewController {
                             } else {
 //                                print("creating")
                                 ref.child(emailRefString).setValue([
-                                    newEmail: username,
+                                    newEmail.lowercased(): username.lowercased(),
                                 ])
                                 ref.child(refString).setValue([
-                                    username: email,
+                                    username.lowercased(): email.lowercased(),
                                 ])
                                 self.userMode()
 
