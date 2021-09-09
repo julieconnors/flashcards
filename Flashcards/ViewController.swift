@@ -66,6 +66,36 @@ class ViewController: UIViewController {
         present(tabBarVC, animated: true)
     }
     
+    func userMode() {
+        let tabBarVC = UITabBarController()
+        
+        let cardSB = UIStoryboard(name: "Cards", bundle: nil)
+        let cardsController = cardSB.instantiateViewController(identifier: "CardsVC")
+        
+        let createCardSB = UIStoryboard(name: "CreateCard", bundle: nil)
+        let createCardController = createCardSB.instantiateViewController(identifier: "CreateCardVC")
+
+        let vc1 = cardsController
+        vc1.title = "Cards"
+        
+        let vc2 = AccountViewController()
+        vc2.title = "Account"
+        let vc3 = createCardController
+        vc3.title = "Create"
+        tabBarVC.setViewControllers([vc1, vc2, vc3], animated: true)
+        
+        guard let items = tabBarVC.tabBar.items else { return }
+        
+        let images = ["square.grid.2x2", "person", "pencil.circle"]
+        
+        for i in 0..<items.count {
+            items[i].image = UIImage(systemName: images[i])
+        }
+        
+        tabBarVC.modalPresentationStyle = .fullScreen
+        present(tabBarVC, animated: true)
+    }
+    
     func addSubView() {
         view.addSubview(usernameLabel)
         view.addSubview(emailLabel)
@@ -207,6 +237,8 @@ class ViewController: UIViewController {
                                 ref.child(refString).setValue([
                                     username: email,
                                 ])
+                                self.userMode()
+
                             }
                         }
                     }
@@ -250,9 +282,10 @@ class ViewController: UIViewController {
                         let usernameData = value?["\(username.lowercased())"] ?? ""
                         let usernameDataStr = (usernameData as? String) ?? ""
                         let emailStr = email ?? ""
-                        if usernameDataStr == emailStr.lowercased() {
+                        if usernameDataStr == emailStr.lowercased() { ///skipping this line
                             print(usernameDataStr)
                             print("login success")
+                            self.userMode()
                             
                         }
                     } else {

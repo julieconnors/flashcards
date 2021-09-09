@@ -19,7 +19,6 @@ class GuestCreateCardViewController: UIViewController {
     
     func addSubview() {
         view.addSubview(label)
-
         view.addSubview(button)
 
         button.translatesAutoresizingMaskIntoConstraints = false

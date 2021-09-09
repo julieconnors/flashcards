@@ -23,6 +23,7 @@ class AccountViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .systemBlue
         view.addSubview(usernameLabel)
         view.addSubview(emailLabel)
     }
