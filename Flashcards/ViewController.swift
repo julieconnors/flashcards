@@ -214,15 +214,6 @@ class ViewController: UIViewController {
                 ref.child(refString).getData { error, snapshot in
                     if snapshot.exists() {
                         self.errorString = "username already exists"
-//                        let value = snapshot.value as? NSDictionary
-//                        let usernameData = value?["\(username.lowercased())"] ?? ""
-//                        let usernameDataStr = (usernameData as? String) ?? ""
-//                        let emailStr = email ?? ""
-//                        print(usernameDataStr)
-//                        print(emailStr)
-//                        if usernameDataStr == emailStr.lowercased() {
-//                            print(usernameDataStr)
-//                        }
                     } else {
                         ref.child(emailRefString).getData { error, snapshot2 in
                             if snapshot2.exists() {
@@ -270,7 +261,7 @@ class ViewController: UIViewController {
         } else {
             var newEmail = email.replacingOccurrences(of: "@", with: "")
             newEmail = newEmail.replacingOccurrences(of: ".", with: "")
-            let emailRefString = "emails/" + newEmail.lowercased()
+//            let emailRefString = "emails/" + newEmail.lowercased()
             if (email.rangeOfCharacter(from: atSet) != nil) && (email.rangeOfCharacter(from: periodSet) != nil) {
                 print("contains both")
                 ref.child(refString).getData { error, snapshot in
@@ -288,14 +279,6 @@ class ViewController: UIViewController {
                             
                         }
                     } else {
-//                        let value = snapshot.value as? NSDictionary
-//                        let usernameData = value?["\(username.lowercased())"] ?? ""
-//                        let usernameDataStr = (usernameData as? String) ?? ""
-//                        let emailStr = email ?? ""
-//                        if usernameDataStr == emailStr.lowercased() {
-//                            print(usernameDataStr)
-//                            print("login success")
-//                        }
                         self.errorString = "user does not exist"
                         print("user does not exist")
                     }
