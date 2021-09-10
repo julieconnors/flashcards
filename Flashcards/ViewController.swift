@@ -9,7 +9,7 @@ import UIKit
 import Firebase
 
 class ViewController: UIViewController {
-    
+    var viewModel: CardCollectionViewModel?
     let usernameLabel = UILabel()
     let emailLabel = UILabel()
     
@@ -34,19 +34,25 @@ class ViewController: UIViewController {
         view = UIView()
         view.backgroundColor = .white
         addSubView()
+        setUpVM()
         setupConstraints()
         useAsGuestButton.addTarget(self, action: #selector(guestMode), for: .touchUpInside)
+    }
+    
+    func setUpVM() {
+        viewModel = CardCollectionViewModel()
     }
     
     @objc func guestMode() {
         let tabBarVC = UITabBarController()
         
         let cardSB = UIStoryboard(name: "Cards", bundle: nil)
-        let cardsController = cardSB.instantiateViewController(identifier: "CardsVC")
-
-        let vc1 = cardsController
-        vc1.title = "Cards"
+        let cardsController = cardSB.instantiateViewController(identifier: "CardsVC") as? CardsViewController
+        guard let cardVC = cardsController else { return }
         
+        let vc1 = cardVC
+        vc1.title = "Cards"
+        vc1.viewModel = self.viewModel
         let vc2 = GuestAccountViewController()
         vc2.title = "Account"
         let vc3 = GuestCreateCardViewController()
@@ -69,21 +75,24 @@ class ViewController: UIViewController {
         let tabBarVC = UITabBarController()
         
         let cardSB = UIStoryboard(name: "Cards", bundle: nil)
-        let cardsController = cardSB.instantiateViewController(identifier: "CardsVC")
+        let cardsController = cardSB.instantiateViewController(identifier: "CardsVC") as? CardsViewController
+        guard let cardVC = cardsController else { return }
         
         let createCardSB = UIStoryboard(name: "CreateCard", bundle: nil)
-        let createCardController = createCardSB.instantiateViewController(identifier: "CreateCardVC")
+        let createCardController = createCardSB.instantiateViewController(identifier: "CreateCardVC") as? CreateCardViewController
+        guard let createVC = createCardController else { return }
 
-        let vc1 = cardsController
+        let vc1 = cardVC
         vc1.title = "Cards"
-        
+        vc1.viewModel = self.viewModel
         let vc2 = AccountViewController()
         vc2.title = "Account"
         vc2.username = usernameTextfield.text ?? ""
         vc2.email = emailTextfield.text ?? ""
         
-        let vc3 = createCardController
+        let vc3 = createVC
         vc3.title = "Create"
+        vc3.collectionViewModel = self.viewModel
         tabBarVC.setViewControllers([vc1, vc2, vc3], animated: true)
         
         guard let items = tabBarVC.tabBar.items else { return }

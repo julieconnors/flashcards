@@ -8,13 +8,13 @@
 import UIKit
 import Firebase
 
-class CreateCardViewController: UIViewController, CollectionDelegate {
-    var cardCollection: [Card] = []
-    
-    var collectionViewModel: CardCollectionViewModel?
-    
-    var collectionDelegate: CollectionDelegate?
+protocol CreateCardProtocol {
+    func addCard(card: Card)
+}
 
+class CreateCardViewController: UIViewController {
+    var cardViewModel: CardViewModel?
+    var collectionViewModel: CardCollectionViewModel?
 
     @IBOutlet weak var createButton: UIButton!
     @IBOutlet weak var headline: UITextField!
@@ -23,9 +23,6 @@ class CreateCardViewController: UIViewController, CollectionDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureButtonAndDescription()
-        
-        guard let cards = collectionDelegate?.cardCollection else { return }
-        cardCollection = cards
     }
     
     func configureButtonAndDescription() {
@@ -39,19 +36,18 @@ class CreateCardViewController: UIViewController, CollectionDelegate {
         let descriptionInput : String!  = cardDescription.text?.lowercased()
         let card = Card(headline: headlineInput, description: descriptionInput)
         
+        cardViewModel = CardViewModel(card: card)
+
         addCardToCollection(card: card)
     }
     
     func addCardToCollection(card: Card) {
-        collectionViewModel = CardCollectionViewModel()
-        
-        cardCollection.append(card)
-
-        print(cardCollection)
-        
-//        collectionViewModel?.cardVM = cardCollection
-
+        collectionViewModel?.addCard(card: card)
         collectionViewModel?.addCardToDB(card: card)
+        
+        headline.text = ""
+        cardDescription.text = ""
     }
 }
+
 

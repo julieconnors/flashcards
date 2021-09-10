@@ -8,7 +8,13 @@
 import Foundation
 import Firebase
 
+//protocol CollectionProtocol {
+//    func addCard(card: Card)
+//}
+
 class CardCollectionViewModel {
+//    var collectionDelegate: CreateCardProtocol?
+    
     var cardVM: [Card]? = [] {
         didSet {
             DispatchQueue.main.async {
@@ -89,4 +95,9 @@ class CardCollectionViewModel {
     
 }
 
+extension CardCollectionViewModel: CreateCardProtocol {
+    func addCard(card: Card) {
+        cardVM?.append(card)
+    }
+}
 

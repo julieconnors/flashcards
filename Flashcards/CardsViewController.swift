@@ -19,22 +19,20 @@ class CardsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpVM()
         configureCollection()
-
+        configureViewModel()
     }
     
-    func setUpVM() {
-        viewModel = CardCollectionViewModel()
-        
-        let setCompletion = { [self] in
-            self.setCards()
+    func configureViewModel() {
+        let setCompletion = { [weak self] in
+            guard let wself = self else { return }
+            wself.setCard()
         }
         
         viewModel?.bind(completion: setCompletion)
     }
     
-    func setCards() {
+    func setCard() {
         collectionView.reloadData()
     }
     
@@ -88,14 +86,3 @@ extension CardsViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension CardsViewController: CollectionDelegate {
-    var cardCollection: [Card] {
-        get {
-            guard let cards = viewModel?.cardVM else {fatalError()}
-            return cards
-        }
-        set(newValue) {
-            viewModel?.cardVM = newValue
-        }
-    }
-}
