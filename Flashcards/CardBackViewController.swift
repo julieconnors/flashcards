@@ -8,15 +8,8 @@
 import UIKit
 
 class CardBackViewController: UIViewController {
-    //view model
-    
-    var viewModel: CardCollectionViewModel?
-    
-    var labelDescription: String = "" {
-        didSet {
-            descriptionLabel.text = labelDescription
-        }
-    }
+    var cardViewModel: CardViewModel?
+    var collectionViewModel: CardCollectionViewModel?
     
     var deleteButton: UIButton = {
         let button = UIButton(frame: CGRect(x: 10, y: 10, width: 100, height: 50))
@@ -26,9 +19,13 @@ class CardBackViewController: UIViewController {
     }()
     
     @objc func removeCard() {
-        viewModel = CardCollectionViewModel()
+        guard let cardArray = collectionViewModel?.cardVM else { return }
+        let remaining = cardArray.filter {$0.headline != cardViewModel?.headline}
         
-        print("delete card")
+        collectionViewModel?.cardVM = remaining
+        collectionViewModel?.deleteCard(headline: cardViewModel?.headline ?? "")
+        
+        self.dismiss(animated: true, completion: nil)
     }
     
     var descriptionLabel: UILabel = {
@@ -39,6 +36,7 @@ class CardBackViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        descriptionLabel.text = cardViewModel?.description
         view.backgroundColor = .orange
         view.addSubview(descriptionLabel)
         view.addSubview(deleteButton)
