@@ -31,14 +31,14 @@ class AccountViewController: UIViewController {
         label.text = "Email"
         return label
     }()
+    
+    let myColor = #colorLiteral(red: 0.9238926768, green: 0.770031631, blue: 0.9872184396, alpha: 1)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBlue
+        view.backgroundColor = myColor
         view.addSubview(usernameLabel)
         view.addSubview(emailLabel)
-        
-        usernameLabel.translatesAutoresizingMaskIntoConstraints = false
-        emailLabel.translatesAutoresizingMaskIntoConstraints = false
     }
+    
 }
