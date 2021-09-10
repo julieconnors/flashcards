@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol CollectionDelegate {
+    var cardCollection: [Card] { get set }
+}
+
 class CardsViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -17,14 +21,14 @@ class CardsViewController: UIViewController {
         super.viewDidLoad()
         setUpVM()
         configureCollection()
+
     }
     
     func setUpVM() {
         viewModel = CardCollectionViewModel()
         
-        let setCompletion = { [weak self] in
-            guard let wself = self else { return }
-            wself.setCards()
+        let setCompletion = { [self] in
+            self.setCards()
         }
         
         viewModel?.bind(completion: setCompletion)
@@ -62,11 +66,11 @@ extension CardsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         guard let card = viewModel?.setCard(at: indexPath.row) else { return }
-        print("selected")
         
         let cardSB = UIStoryboard(name: "Cards", bundle: nil)
         guard let popupVC = cardSB.instantiateViewController(identifier: "CardBackVC") as? CardBackViewController else { return }
-        popupVC.labelDescription = card.description
+        popupVC.collectionViewModel = viewModel
+        popupVC.cardViewModel = CardViewModel(card: card)
         popupVC.modalPresentationStyle = .popover
 
         present(popupVC, animated: true, completion: nil)
@@ -81,5 +85,17 @@ extension CardsViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         20
+    }
+}
+
+extension CardsViewController: CollectionDelegate {
+    var cardCollection: [Card] {
+        get {
+            guard let cards = viewModel?.cardVM else {fatalError()}
+            return cards
+        }
+        set(newValue) {
+            viewModel?.cardVM = newValue
+        }
     }
 }

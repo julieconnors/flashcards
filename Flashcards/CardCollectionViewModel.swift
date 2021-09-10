@@ -9,7 +9,6 @@ import Foundation
 import Firebase
 
 class CardCollectionViewModel {
-    
     var cardVM: [Card]? = [] {
         didSet {
             DispatchQueue.main.async {
@@ -22,8 +21,6 @@ class CardCollectionViewModel {
         cardVM?.count ?? 0
     }
     
-    let cards: [Card] = [Card(headline: "generics", description: "allows for multiple types"), Card(headline: "protocol", description: "object blueprint"), Card(headline: "extension", description: "continuation of object definition, cannot store values")]
-    
     init() {
         getCards()
     }
@@ -34,47 +31,54 @@ class CardCollectionViewModel {
         return card
     }
     
-    
-    
     func getCards() {
-        //get from db, save to cards vm
         let ref = Database.database().reference()
         let refString = "flashcards/"
         
-        ref.child(refString).getData(completion: { error, snapshot in
-            print(snapshot.value)
-            guard let data = snapshot.value else {fatalError()}
+        ref.child(refString).getData(completion: { [self] error, snapshot in
+            guard let data = snapshot.value else { return }
             
             let dataDict = data as? NSDictionary
             
-            guard let dict = dataDict else {fatalError()}
-            
-            print(dict)
-            
-            for (key, value) in dict {
-                print("key:", key)
-                print("value:", value)
-                print(type(of: value))
-                
+            guard let dict = dataDict else { return }
+                        
+            var cards: [Card] = []
+            for (_, value) in dict {
                 guard let dict2 = value as? Dictionary<String,Any> else {fatalError()}
                 for (key, value) in dict2 {
-                    print(key)
-                    print(value)
-                    let newKey = (key as? String) ?? ""
+                    let newKey = key
                     let newValue = (value as? String) ?? ""
                 
                     let newCard = Card(headline: newKey, description: newValue)
-                    self.cardVM?.append(newCard)
-
+                    
+                    cards.append(newCard)
                 }
             }
+            cardVM = cards
         })
     }
     
-    func addCard() {
-        //add to cards vm and persist to db
+    func addCardToDB(card: Card) {
+        let ref = Database.database().reference()
+        let refString = "flashcards/" + card.headline.lowercased()
         
+        if card.headline != "" || card.description != "" {
+            ref.child(refString).getData { error, snapshot in
+                if snapshot.exists() {
+                } else {
+                    ref.child(refString).setValue([
+                        card.headline.lowercased(): card.description.lowercased(),
+                    ])
+                }
+            }
+        }
+    }
+    
+    func deleteCard(headline: String) {
+        let ref = Database.database().reference()
+        let refString = "flashcards/" + headline
         
+        ref.child(refString).removeValue()
     }
     
     func bind(completion: @escaping () -> Void) {
@@ -82,4 +86,7 @@ class CardCollectionViewModel {
     }
     
     var updateUI: (() -> Void)?
+    
 }
+
+
