@@ -9,7 +9,10 @@ import UIKit
 
 class GuestCreateCardViewController: UIViewController {
     
-    let myColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+    let myColor = #colorLiteral(red: 0.9620164037, green: 0.9260525107, blue: 0.7202356458, alpha: 1)
+    
+    let label = UILabel()
+    let button = UIButton()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,23 +23,31 @@ class GuestCreateCardViewController: UIViewController {
     func addSubview() {
         view.addSubview(label)
         view.addSubview(button)
+        
+        labelConstraints()
+        buttonConstraints()
+        
+        label.translatesAutoresizingMaskIntoConstraints = false
+        button.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    var label: UILabel = {
-        let label = UILabel(frame: CGRect(x: 100, y: 100, width: 200, height: 100))
-
+    func labelConstraints() {
+        label.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -20).isActive = true
+        label.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0).isActive = true
+        label.widthAnchor.constraint(equalToConstant: 120).isActive = true
         label.text = "Please sign in"
         label.font = .systemFont(ofSize: 18, weight: .medium)
-        return label
-    }()
+    }
     
-    var button: UIButton = {
-        let button = UIButton(frame: CGRect(x: 80, y: 100, width: 150, height: 200))
+    func buttonConstraints() {
+        button.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: 30).isActive = true
+        button.centerXAnchor.constraint(equalTo: self.view.centerXAnchor, constant: 0).isActive = true
+        button.widthAnchor.constraint(equalToConstant: 200).isActive = true
         button.setTitle("Go back to login", for: .normal)
+        button.setTitleColor(.blue, for: .normal)
+
         button.addTarget(self, action: #selector(goToLogin), for: .touchUpInside)
-        
-        return button
-    }()
+    }
     
     @objc func goToLogin() {
         self.dismiss(animated: true, completion: nil)
