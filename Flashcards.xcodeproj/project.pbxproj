@@ -28,6 +28,7 @@
 		8D93D4EF26E7E26000D7C03E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D93D4ED26E7E26000D7C03E /* LaunchScreen.storyboard */; };
 		8D93D4FA26E7E26000D7C03E /* FlashcardsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D93D4F926E7E26000D7C03E /* FlashcardsTests.swift */; };
 		8D93D50526E7E26000D7C03E /* FlashcardsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D93D50426E7E26000D7C03E /* FlashcardsUITests.swift */; };
+		8DD322C626EB7F5A00911BDC /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD322C526EB7F5A00911BDC /* CardViewModel.swift */; };
 		A44B027226E7ED5D0000F41C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A44B027126E7ED5D0000F41C /* GoogleService-Info.plist */; };
 		A44B027526E7EE780000F41C /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = A44B027426E7EE780000F41C /* FirebaseCrashlytics */; };
 		A44B027726E7EE780000F41C /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = A44B027626E7EE780000F41C /* FirebaseDatabase */; };
@@ -79,6 +80,7 @@
 		8D93D50026E7E26000D7C03E /* FlashcardsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlashcardsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D93D50426E7E26000D7C03E /* FlashcardsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlashcardsUITests.swift; sourceTree = "<group>"; };
 		8D93D50626E7E26000D7C03E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8DD322C526EB7F5A00911BDC /* CardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		A44B027126E7ED5D0000F41C /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -152,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				8D1B065026EA018000C24C29 /* CardCollectionViewModel.swift */,
+				8DD322C526EB7F5A00911BDC /* CardViewModel.swift */,
 			);
 			name = ViewModel;
 			sourceTree = "<group>";
@@ -375,6 +378,7 @@
 				8D1B063626E91F5D00C24C29 /* CreateCardViewController.swift in Sources */,
 				8D1B063826E91F8D00C24C29 /* CardsViewController.swift in Sources */,
 				8D93D4E326E7E25F00D7C03E /* AppDelegate.swift in Sources */,
+				8DD322C626EB7F5A00911BDC /* CardViewModel.swift in Sources */,
 				8D1B063426E91F3A00C24C29 /* AccountViewController.swift in Sources */,
 				8D1B064A26E9FF6F00C24C29 /* Card.swift in Sources */,
 				8D1B064226E92E7700C24C29 /* GuestAccountViewController.swift in Sources */,

@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol CollectionDelegate {
+    var cardCollection: [Card] { get set }
+}
+
 class CardsViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
@@ -15,22 +19,20 @@ class CardsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpVM()
         configureCollection()
+        configureViewModel()
     }
     
-    func setUpVM() {
-        viewModel = CardCollectionViewModel()
-        
+    func configureViewModel() {
         let setCompletion = { [weak self] in
             guard let wself = self else { return }
-            wself.setCards()
+            wself.setCard()
         }
         
         viewModel?.bind(completion: setCompletion)
     }
     
-    func setCards() {
+    func setCard() {
         collectionView.reloadData()
     }
     
@@ -62,11 +64,11 @@ extension CardsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         guard let card = viewModel?.setCard(at: indexPath.row) else { return }
-        print("selected")
         
         let cardSB = UIStoryboard(name: "Cards", bundle: nil)
         guard let popupVC = cardSB.instantiateViewController(identifier: "CardBackVC") as? CardBackViewController else { return }
-        popupVC.labelDescription = card.description
+        popupVC.collectionViewModel = viewModel
+        popupVC.cardViewModel = CardViewModel(card: card)
         popupVC.modalPresentationStyle = .popover
 
         present(popupVC, animated: true, completion: nil)
@@ -83,3 +85,4 @@ extension CardsViewController: UICollectionViewDelegateFlowLayout {
         20
     }
 }
+

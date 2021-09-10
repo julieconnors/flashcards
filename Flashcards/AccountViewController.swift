@@ -20,7 +20,6 @@ class AccountViewController: UIViewController {
         }
     }
     
-    
     var usernameLabel: UILabel = {
         var label = UILabel(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
         label.text = "Username"

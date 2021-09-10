@@ -8,7 +8,13 @@
 import UIKit
 import Firebase
 
+protocol CreateCardProtocol {
+    func addCard(card: Card)
+}
+
 class CreateCardViewController: UIViewController {
+    var cardViewModel: CardViewModel?
+    var collectionViewModel: CardCollectionViewModel?
 
     @IBOutlet weak var createButton: UIButton!
     @IBOutlet weak var headline: UITextField!
@@ -28,26 +34,20 @@ class CreateCardViewController: UIViewController {
     @objc func createPressed() {
         let headlineInput : String!  = headline.text?.lowercased()
         let descriptionInput : String!  = cardDescription.text?.lowercased()
+        let card = Card(headline: headlineInput, description: descriptionInput)
         
-        createCard(headline: headlineInput, description: descriptionInput)
+        cardViewModel = CardViewModel(card: card)
+
+        addCardToCollection(card: card)
     }
     
-    
-    func createCard(headline: String!, description: String!) {
-        let ref = Database.database().reference()
-        let refString = "flashcards/" + headline.lowercased()
-        let headlineUnwrapped = headline ?? ""
-        let descriptionUnwrapped = description ?? ""
+    func addCardToCollection(card: Card) {
+        collectionViewModel?.addCard(card: card)
+        collectionViewModel?.addCardToDB(card: card)
         
-        if headline != nil || description != nil || headline != "" || description != "" {
-            ref.child(refString).getData { error, snapshot in
-                if snapshot.exists() {
-                } else {
-                    ref.child(refString).setValue([
-                        headlineUnwrapped.lowercased(): descriptionUnwrapped.lowercased(),
-                    ])
-                }
-            }
-        }
+        headline.text = ""
+        cardDescription.text = ""
     }
 }
+
+
