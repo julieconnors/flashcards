@@ -40,10 +40,6 @@ class CardBackViewController: UIViewController {
     }()
     
     @objc func removeCard() {
-        guard let cardArray = collectionViewModel?.cardVM else { return }
-        let remaining = cardArray.filter {$0.headline != cardViewModel?.headline}
-        
-        collectionViewModel?.cardVM = remaining
         collectionViewModel?.deleteCard(headline: cardViewModel?.headline ?? "")
         
         self.dismiss(animated: true, completion: nil)
