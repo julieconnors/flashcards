@@ -6,21 +6,21 @@
 //
 
 import UIKit
-
-protocol CollectionDelegate {
-    var cardCollection: [Card] { get set }
-}
+import Firebase
 
 class CardsViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
         
     var viewModel: CardCollectionViewModel?
+    var remoteConfig: RemoteConfig!
+    var carousel: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollection()
         configureViewModel()
+        getRemoteConfig()
     }
     
     func configureViewModel() {
@@ -41,6 +41,7 @@ class CardsViewController: UIViewController {
         collectionView.delegate = self
         collectionView.register(UINib(nibName: CardCell.identifier, bundle: nil), forCellWithReuseIdentifier: CardCell.identifier)
     }
+    
 }
 
 extension CardsViewController: UICollectionViewDataSource {
@@ -76,13 +77,52 @@ extension CardsViewController: UICollectionViewDataSource {
 }
 
 extension CardsViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            if carousel {
+                return CGSize(width: 300, height: 400)
+            }
+            return CGSize(width: 100, height: 100)
+        }
 
-        return CGSize(width: 90, height: 100)
-    }
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         20
+        }
+    
+    func configureCarouselView(with data: [Card]) {
+        let carouselLayout = UICollectionViewFlowLayout()
+        carouselLayout.scrollDirection = .horizontal
+        carouselLayout.itemSize = .init(width: 350, height: 500)
+        collectionView.collectionViewLayout = carouselLayout
+        
+        collectionView.reloadData()
+    }
+    
+    func getRemoteConfig() {
+        remoteConfig = RemoteConfig.remoteConfig()
+        let settings = RemoteConfigSettings()
+        settings.minimumFetchInterval = 0
+        remoteConfig.configSettings = settings
+        
+        let defaults: [String: NSObject] = ["carousel": false as NSObject]
+
+        remoteConfig.setDefaults(defaults)
+
+        remoteConfig.fetch { (status, error) -> Void in
+            if status == .success {
+                self.remoteConfig.activate { changed, error in
+                    let value = self.remoteConfig.configValue(forKey: "carousel").boolValue
+                    if value {
+                        self.carousel = true
+                        DispatchQueue.main.async {
+                            self.configureCarouselView(with: self.viewModel?.cardVM ?? [])
+                        }
+                    }
+                }
+            } else {
+                print("Config not fetched")
+            }
+        }
     }
 }
 

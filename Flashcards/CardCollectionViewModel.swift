@@ -94,7 +94,7 @@ class CardCollectionViewModel {
     
 }
 
-extension CardCollectionViewModel: CreateCardProtocol {
+extension CardCollectionViewModel {
     func addCard(card: Card) {
         cardVM?.append(card)
     }
