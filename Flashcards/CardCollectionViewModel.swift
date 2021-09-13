@@ -8,12 +8,7 @@
 import Foundation
 import Firebase
 
-//protocol CollectionProtocol {
-//    func addCard(card: Card)
-//}
-
 class CardCollectionViewModel {
-//    var collectionDelegate: CreateCardProtocol?
     
     var cardVM: [Card]? = [] {
         didSet {
@@ -81,6 +76,10 @@ class CardCollectionViewModel {
     }
     
     func deleteCard(headline: String) {
+        guard let vm = cardVM else { return }
+        let remaining = vm.filter {$0.headline != headline}
+        cardVM = remaining
+
         let ref = Database.database().reference()
         let refString = "flashcards/" + headline
         
@@ -95,7 +94,7 @@ class CardCollectionViewModel {
     
 }
 
-extension CardCollectionViewModel: CreateCardProtocol {
+extension CardCollectionViewModel {
     func addCard(card: Card) {
         cardVM?.append(card)
     }

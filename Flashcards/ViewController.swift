@@ -30,7 +30,6 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         view = UIView()
         view.backgroundColor = .white
         addSubView()
@@ -301,6 +300,4 @@ class ViewController: UIViewController {
             }
         }
     }
-    
 }
-

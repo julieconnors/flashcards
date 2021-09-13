@@ -8,12 +8,11 @@
 import UIKit
 import Firebase
 
-protocol CreateCardProtocol {
-    func addCard(card: Card)
-}
+//protocol CreateCardProtocol {
+//    func addCard(card: Card)
+//}
 
 class CreateCardViewController: UIViewController {
-    var cardViewModel: CardViewModel?
     var collectionViewModel: CardCollectionViewModel?
 
     @IBOutlet weak var createButton: UIButton!
@@ -36,8 +35,6 @@ class CreateCardViewController: UIViewController {
         let descriptionInput : String!  = cardDescription.text?.lowercased()
         let card = Card(headline: headlineInput, description: descriptionInput)
         
-        cardViewModel = CardViewModel(card: card)
-
         addCardToCollection(card: card)
     }
     
